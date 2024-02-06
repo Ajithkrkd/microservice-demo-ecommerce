@@ -28,7 +28,7 @@ public void createProduct(ProductRequest productRequest)
     log.info ( "product saved successfully" );
 }
 
-    public List< ProductResponse> getAllProducts ( ) {
+    public List< ProductResponse > getAllProducts ( ) {
         List<Product> products = productRepository.findAll ();
         return    products.stream ().map ( this::mapToProductResponse ).toList ();
     }
