@@ -7,6 +7,7 @@ import com.ajith.orderservice.model.Order;
 import com.ajith.orderservice.model.OrderLineItems;
 import com.ajith.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -21,7 +22,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
     private final WebClient.Builder webClientBuilder;
-    public void placeOrder(OrderRequest orderRequest)
+    public ResponseEntity<String> placeOrder(OrderRequest orderRequest)
     {
         Order order = new Order ();
         order.setOrderNumber ( UUID.randomUUID ().toString () );
@@ -52,8 +53,10 @@ public class OrderService {
             orderRepository.save ( order );
         }
         else {
-            throw new IllegalArgumentException ( "Product is not in stock" );
+            return ResponseEntity.ok (  "product not in stock" );
         }
+
+        return ResponseEntity.ok ( "Order saved successfully" );
     }
 
     private OrderLineItems mapToOrderLineItemsDto (OrderLineItemsDto orderLineItem) {
