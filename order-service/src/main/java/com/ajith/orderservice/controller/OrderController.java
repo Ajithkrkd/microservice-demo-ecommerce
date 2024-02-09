@@ -18,7 +18,6 @@ public class OrderController {
     public ResponseEntity<String> placeOrder(@RequestBody OrderRequest orderRequest)
     {
          return  orderService.placeOrder ( orderRequest );
-
     }
 
 
